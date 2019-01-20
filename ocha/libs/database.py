@@ -3,6 +3,7 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import os
 from ocha.libs import utils
 from passlib.hash import pbkdf2_sha256
+from ocha.libs import setting
 
 def check_db(qry, db, db_name):
     db.execute(qry)
@@ -112,7 +113,19 @@ def database_setting(config):
 
 def database_parse(config, obj_database, security = None, auth_config= None):
     db = database_setting(config)
-    # data_finish = list()
+    # # data_finish = list()
+    # if security:
+    #     for tables in setting.default_table:
+    #         config_table = list()
+    #         for column in obj_database['tables'][tables]:
+    #             data_f = {
+    #                 "column": column,
+    #                 "rules": obj_database['tables'][tables][column]
+    #             }
+    #             config_table.append(data_f)
+    #         query = create_table(tables, config_table)
+    #         execute_query(query,db)
+    
     for tables in obj_database['tables']:
         config_table = list()
         for column in obj_database['tables'][tables]:
@@ -123,13 +136,14 @@ def database_parse(config, obj_database, security = None, auth_config= None):
             config_table.append(data_f)
         query = create_table(tables, config_table)
         execute_query(query,db)
+
     if security:
         # inserting admin user
         admin_userdata = {
             'first_name': auth_config['user'],
             'last_name': auth_config['user'],
             'location': '',
-            'email': auth_config['admin'],
+            'email': auth_config['email'],
         }
         id_userdata = insert(db,'tb_userdata', admin_userdata)
         if id_userdata:

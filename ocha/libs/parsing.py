@@ -10,8 +10,6 @@ CURR_DIR = getcwd()
 def initialize(file=None, path=None, sync_md=None):
     obj_data = utils.yaml_read(file)
     # Create APP
-    # app_name =  obj_data['config']['app']['name']
-    # app_framework =  obj_data['config']['app']['framework']
     app_name =  parsing_utils.utils.check_keys(obj_data['config']['app'],"name")
     app_framework = parsing_utils.utils.check_keys(obj_data['config']['app'],"framework")
     app_path = utils.read_app(app_name, path=path)
@@ -26,7 +24,6 @@ def initialize(file=None, path=None, sync_md=None):
             path_rm = app_path
             utils.remove_folder(path_rm)
             create_app = parsing_utils.create_app(app_name, app_framework, path=path)
-        exit()
 
     # Set App Constructor
     app_path = utils.read_app(app_name, path=path)
@@ -47,7 +44,7 @@ def initialize(file=None, path=None, sync_md=None):
                 try:
                     remove(app_path+"/app/"+ database_setting['driver'][driver_key]['constructor'])
                 except Exception:
-                    pass
+                    parsing_utils.utils.log_err(Exception)
 
     # create environment
     if not utils.read_file(app_path+"/.env"):
@@ -94,8 +91,8 @@ def initialize(file=None, path=None, sync_md=None):
                                 parsing_utils.create_moduls(nm_moduls,modules_data, CURR_DIR, sync_md=True)
                         nm_modul = nm_moduls
     if listdir:
-        parsing_utils.utils.report("FAILED", "Moduls Folder Not Empty")
-        parsing_utils.utils.report("REPORT", "Run 'ocha moduls create' to generate moduls for locals project")
+        parsing_utils.utils.report("Moduls Folder Not Empty")
+        parsing_utils.utils.report("Run 'ocha moduls create' to generate moduls for locals project")
     # database setup
     config_database = obj_data['config']['database']
     auth_config = obj_data['auth']

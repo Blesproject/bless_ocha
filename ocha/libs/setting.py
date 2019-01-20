@@ -63,3 +63,52 @@ framework_setting = {
       }
     }
   }
+
+default_table = {
+  "tb_userdata": {
+    "id_userdata": {
+      "type": "serial",
+      "notNull": True,
+      "primaryKey": True
+    },
+    "first_name": {
+      "type": "varchar",
+      "notNull": True
+    },
+    "last_name": {
+      "type": "varchar",
+      "notNull": True
+    },
+    "location": {
+      "type": "varchar"
+    },
+    "email": {
+      "type": "varchar",
+      "unique": True
+    }
+  },
+  "tb_user": {
+    "id_user": {
+      "type": "serial",
+      "notNull": True,
+      "primaryKey": True
+    },
+    "id_userdata": {
+      "type": "int",
+      "notNull": True,
+      "foreignKey": {
+        "reference": "tb_userdata",
+        "field": "id_userdata",
+        "on_delete": "cascade",
+        "on_update": "cascade"
+      }
+    },
+    "username": {
+      "type": "varchar",
+      "unique": True
+    },
+    "password": {
+      "type": "varchar"
+    }
+  }
+}
