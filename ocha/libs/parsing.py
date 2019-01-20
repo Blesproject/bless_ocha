@@ -95,7 +95,8 @@ def initialize(file=None, path=None, sync_md=None):
         parsing_utils.utils.report("Run 'ocha moduls create' to generate moduls for locals project")
     # database setup
     config_database = obj_data['config']['database']
+    security_lib = parsing_utils.utils.check_keys(obj_data['config']['app']['library'],"auth")
     auth_config = obj_data['auth']
     if config_database['host'] == "localhost" or config_database['host'] == "127.0.0.1":
-        database.database_parse(config_database,obj_data['database'], security, auth_config)
+        database.database_parse(config_database,obj_data['database'], security_lib, auth_config)
     return app_path

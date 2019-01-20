@@ -205,7 +205,7 @@ def create_moduls(moduls_name, moduls_data, app_path, sync_md=None):
     f=open(file_moduls_path, "a+")
     f.write(import_value)
     function_value = ""
-    utils.report("REPORT", "Moduls "+moduls_name+" Create")
+    utils.report("Moduls "+moduls_name+" Create")
     for i in moduls_data:
         if moduls_data[i]['action'] == 'insert':
             function_value += """def """+moduls_data[i]['action']+"""(args):

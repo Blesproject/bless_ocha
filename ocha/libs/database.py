@@ -114,18 +114,20 @@ def database_setting(config):
 def database_parse(config, obj_database, security = None, auth_config= None):
     db = database_setting(config)
     # # data_finish = list()
-    # if security:
-    #     for tables in setting.default_table:
-    #         config_table = list()
-    #         for column in obj_database['tables'][tables]:
-    #             data_f = {
-    #                 "column": column,
-    #                 "rules": obj_database['tables'][tables][column]
-    #             }
-    #             config_table.append(data_f)
-    #         query = create_table(tables, config_table)
-    #         execute_query(query,db)
-    
+    if security:
+        df_table = setting.default_table
+        for d_tables in df_table['tables']:
+            config_table = list()
+            for column in df_table['tables'][d_tables]:
+                data_f = {
+                    "column": column,
+                    "rules": df_table['tables'][d_tables][column]
+                }
+                config_table.append(data_f)
+            query = create_table(d_tables, config_table)
+            execute_query(query,db)
+        utils.report("Default Table Created")
+
     for tables in obj_database['tables']:
         config_table = list()
         for column in obj_database['tables'][tables]:
