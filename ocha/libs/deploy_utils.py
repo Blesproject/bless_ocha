@@ -78,36 +78,42 @@ def neo_deploy_new(ocha_object):
                     "key_name": "vm-key",
                     "username": username
                 },
-                "template": "ocha"
+                "template": "bless"
             }
         }
     }
+
     url_vm = head_url+"/api/create"
     res_fix = dict()
     data_create = list()
     data_respon = list()
     data_pemkey = ""
+
     try:
         data_create = utils.send_http(url_vm, send_to_openstack, headers)
-        url_vm = head_url+"/api/list/vm"
-        url_pemkey = head_url+"/api/list/pemkey/"+app_name
-        c_limit = True;
-        while c_limit:
-            data_vm = utils.get_http(url_vm, headers=headers)
-            for i in data_vm['data']:
-                if i['name'] == app_name:
-                    res_fix = i
-                    c_limit = False
-            data_pemkey = utils.get_http(url_pemkey, headers=headers)
     except Exception as e:
-        return e
-    else:
-        data_respon.append({
-            "create": data_create['data'],
-            "vm": res_fix,
-            "pemkey": data_pemkey
-        })
-        return data_respon
+        print(e)
+        exit()
+
+    url_vm = head_url+"/api/list/vm"
+    url_pemkey = head_url+"/api/list/pemkey/"+app_name
+    check = True
+    while check:
+        data_vm = utils.get_http(url_vm, headers=headers)
+        if data_vm['data']:
+            check = False
+
+    for i in data_vm['data']:
+        if i['name'] == app_name:
+            res_fix = i
+    data_pemkey = utils.get_http(url_pemkey, headers=headers)
+
+    data_respon.append({
+        "create": data_create['data'],
+        "vm": res_fix,
+        "pemkey": data_pemkey
+    })
+    return data_respon
 
 
 # Deploying in neo service

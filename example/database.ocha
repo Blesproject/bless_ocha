@@ -1,0 +1,11 @@
+database:
+  tables :
+    point_test:
+      id_pointest:
+        type: serial
+        notNull: True
+        primaryKey: True
+      nm_pointest:
+        type: varchar
+      value_pointest:
+        type: varchar

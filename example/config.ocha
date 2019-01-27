@@ -1,0 +1,21 @@
+config:
+  database:
+    host: localhost
+    port: 26257
+    username: root
+    name: bless_test01
+    ssl: disable
+    driver: cockroachdb
+  app:
+    host: 0.0.0.0
+    name : bless_test01
+    framework: flask
+    port: 6969
+    worker: 2
+    environment: production
+    library:
+      auth: True
+  redis:
+    host: 127.0.0.1
+    password: pass
+    port: 6379

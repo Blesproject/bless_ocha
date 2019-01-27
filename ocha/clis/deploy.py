@@ -37,6 +37,7 @@ class Deploy(Base):
                     exit()
 
             respon = deploy_utils.neo_deploy_new(ocha_config)
+           
             data_vm = dict()
             data_project = dict()
             pemkey=""
