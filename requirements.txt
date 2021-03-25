@@ -136,7 +136,7 @@ python-memcached==1.59
 python3-openid==3.1.0
 pytz==2018.4
 pyxdg==0.25
-PyYAML==3.13
+PyYAML==5.4
 pyzmq==17.0.0
 query-string==1.0.2
 readme-renderer==24.0
