@@ -111,7 +111,7 @@ promise==2.1
 prompt-toolkit==1.0.15
 psycopg2==2.7.6.1
 public==2.0.1
-py==1.5.3
+py==1.10.0
 pyaml==17.12.1
 pyasn1==0.4.3
 pycodestyle==2.4.0
